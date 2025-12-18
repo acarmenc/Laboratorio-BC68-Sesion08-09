@@ -1,0 +1,195 @@
+{
+	"info": {
+		"_postman_id": "2a553877-bf3a-4f48-bfdf-95e18bbf14d7",
+		"name": "BankX - Transactions Service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "50836646",
+		"_collection_link": "https://angelgerardo-carmencruzatti-9848706.postman.co/workspace/Angel's-Workspace~af3fc7dd-2eba-4ed7-8da1-1f5204be8f82/collection/50836646-2a553877-bf3a-4f48-bfdf-95e18bbf14d7?action=share&source=collection_link&creator=50836646"
+	},
+	"item": [
+		{
+			"name": "Crear Transacción - OK",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"accountNumber\": \"001-0001\",\r\n    \"type\": \"DEBIT\",\r\n    \"amount\": 300\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/transactions",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear Transacción - Rechazo por riesgo",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"accountNumber\": \"001-0001\",\r\n    \"type\": \"DEBIT\",\r\n    \"amount\": 2000\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/transactions",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear Transacción - Rechazo por fondos insuficientes",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"accountNumber\": \"001-0002\",\r\n    \"type\": \"DEBIT\",\r\n    \"amount\": 1400\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/transactions",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar transacciones por cuenta",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/transactions?accountNumber=001-0001",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"transactions"
+					],
+					"query": [
+						{
+							"key": "accountNumber",
+							"value": "001-0001"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Stream de transacciones",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/stream/transactions",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"stream",
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": ""
+		}
+	]
+}
