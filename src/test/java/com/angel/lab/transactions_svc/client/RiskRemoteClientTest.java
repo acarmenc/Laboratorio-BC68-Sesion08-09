@@ -94,7 +94,7 @@ class RiskRemoteClientTest {
         when(riskService.isAllowed("USD", "CREDIT", new BigDecimal("1000")))
             .thenReturn(Mono.just(true));
         
-        var result = riskRemoteClient.fallback("USD", "CREDIT", new BigDecimal("1000"));
+        var result = riskRemoteClient.fallback("USD", "CREDIT", new BigDecimal("1000"), new Exception("error"));
         
         assertTrue(result.toCompletableFuture().get());
     }
@@ -104,7 +104,7 @@ class RiskRemoteClientTest {
         when(riskService.isAllowed("EUR", "DEBIT", new BigDecimal("3000")))
             .thenReturn(Mono.just(false));
         
-        var result = riskRemoteClient.fallback("EUR", "DEBIT", new BigDecimal("3000"));
+        var result = riskRemoteClient.fallback("EUR", "DEBIT", new BigDecimal("3000"), new Exception("error"));
         
         assertFalse(result.toCompletableFuture().get());
     }

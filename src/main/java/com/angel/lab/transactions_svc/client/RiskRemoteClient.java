@@ -5,6 +5,7 @@ import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.retry.annotation.Retry;
 import io.github.resilience4j.timelimiter.annotation.TimeLimiter;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
@@ -37,11 +38,12 @@ public class RiskRemoteClient {
                 .toFuture();
     }
 
-    public CompletionStage<Boolean> fallback(String currency, String type, BigDecimal amount) {
+    public CompletionStage<Boolean> fallback(String currency, String type, BigDecimal amount, Throwable ex) {
         return legacyAllowed(currency, type, amount).toFuture();
     }
 
+
     private Mono<Boolean> legacyAllowed(String c, String t, BigDecimal a) {
-        return legacy.isAllowed(c, t, a); // ya corre en boundedElastic
+    return legacy.isAllowed(c, t, a); // ya corre en boundedElastic
     }
 }

@@ -93,14 +93,13 @@ public class TransactionService {
     public Flux<Transaction> byAccount(String accountNumber) {
         log.debug("Searching transactions for account={}", accountNumber);
         
-        Flux<Transaction> serviceLogic = accountRepo.findByNumber(accountNumber)
+        return accountRepo.findByNumber(accountNumber)
                 .switchIfEmpty(Mono.error(new BusinessException("account_not_found")))
                 .flatMapMany(acc -> {
                     log.info("Account found, loading transactions account={}", accountNumber);
                     return txRepo.findByAccountIdOrderByTimestampDesc(acc.getId());
                 });
-        
-        return serviceLogic;
+
     }
     public Flux<ServerSentEvent<Transaction>> stream() {
         log.debug("Opening transaction stream");
