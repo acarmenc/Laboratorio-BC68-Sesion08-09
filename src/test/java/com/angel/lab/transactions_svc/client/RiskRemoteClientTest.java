@@ -17,7 +17,6 @@ import java.net.URI;
 import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
 
 import static org.mockito.Mockito.when;
 
@@ -95,7 +94,7 @@ class RiskRemoteClientTest {
         when(riskService.isAllowed("USD", "CREDIT", new BigDecimal("1000")))
             .thenReturn(Mono.just(true));
         
-        var result = riskRemoteClient.fallback("USD", "CREDIT", new BigDecimal("1000"), new Exception("Network error"));
+        var result = riskRemoteClient.fallback("USD", "CREDIT", new BigDecimal("1000"));
         
         assertTrue(result.toCompletableFuture().get());
     }
@@ -105,7 +104,7 @@ class RiskRemoteClientTest {
         when(riskService.isAllowed("EUR", "DEBIT", new BigDecimal("3000")))
             .thenReturn(Mono.just(false));
         
-        var result = riskRemoteClient.fallback("EUR", "DEBIT", new BigDecimal("3000"), new Exception("Circuit breaker open"));
+        var result = riskRemoteClient.fallback("EUR", "DEBIT", new BigDecimal("3000"));
         
         assertFalse(result.toCompletableFuture().get());
     }

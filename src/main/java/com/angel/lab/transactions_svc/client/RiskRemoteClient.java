@@ -5,7 +5,6 @@ import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.retry.annotation.Retry;
 import io.github.resilience4j.timelimiter.annotation.TimeLimiter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
@@ -18,6 +17,8 @@ import java.util.concurrent.CompletionStage;
 public class RiskRemoteClient {
 
     private final WebClient riskWebClient;
+    private final RiskService legacy;
+
     @TimeLimiter(name = "riskClient")
     @Retry(name = "riskClient")
     @CircuitBreaker(name = "riskClient", fallbackMethod = "fallback")
@@ -36,13 +37,10 @@ public class RiskRemoteClient {
                 .toFuture();
     }
 
-    public CompletionStage<Boolean> fallback(String currency, String type, BigDecimal amount,
-                                  Throwable ex) {
+    public CompletionStage<Boolean> fallback(String currency, String type, BigDecimal amount) {
         return legacyAllowed(currency, type, amount).toFuture();
     }
 
-    @Autowired
-    RiskService legacy; // el de JPA que ya tenías
     private Mono<Boolean> legacyAllowed(String c, String t, BigDecimal a) {
         return legacy.isAllowed(c, t, a); // ya corre en boundedElastic
     }

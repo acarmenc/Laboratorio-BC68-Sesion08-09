@@ -9,7 +9,6 @@ import com.angel.lab.transactions_svc.repository.AccountRepository;
 import com.angel.lab.transactions_svc.repository.TransactionRepository;
 import com.angel.lab.transactions_svc.util.LogContext;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.codec.ServerSentEvent;
 import org.springframework.stereotype.Service;
 

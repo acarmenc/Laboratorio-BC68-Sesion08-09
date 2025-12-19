@@ -19,8 +19,8 @@ public class MockRiskController {
                                @RequestParam(defaultValue = "false") boolean fail,
                                @RequestParam(defaultValue = "0") long delayMs) {
         if (fail) return Mono.error(new RuntimeException("risk_down"));
-        return Mono.just(("DEBIT".equalsIgnoreCase(type) && amount.compareTo(new
-                        BigDecimal("1200")) > 0) ? false : true)
+        boolean isAllowed = !("DEBIT".equalsIgnoreCase(type) && amount.compareTo(new BigDecimal("1200")) > 0);
+        return Mono.just(isAllowed)
                 .delayElement(Duration.ofMillis(delayMs));
     }
 }
