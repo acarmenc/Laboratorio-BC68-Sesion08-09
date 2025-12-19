@@ -1,4 +1,4 @@
-package com.angel.lab.transactions_svc.seed;
+package com.angel.lab.transactions_svc.util;
 
 import com.angel.lab.transactions_svc.model.entities.Account;
 import com.angel.lab.transactions_svc.model.entities.RiskRule;

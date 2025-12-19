@@ -1,6 +1,5 @@
-package com.angel.lab.transactions_svc;
+package com.angel.lab.transactions_svc.service;
 
-import com.angel.lab.transactions_svc.service.RiskService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
