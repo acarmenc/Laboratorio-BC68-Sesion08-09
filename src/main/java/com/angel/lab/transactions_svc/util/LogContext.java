@@ -7,7 +7,7 @@ import reactor.core.publisher.Mono;
 @Component
 public class LogContext {
     public <T> Mono<T> withMdc(Mono<T> mono) {
-        return mono.deferContextual(ctx -> {
+        return Mono.deferContextual(ctx -> {
             String corr = ctx.getOrDefault("corrId", "na").toString();
             ThreadContext.put("corrId", corr);
             return mono.doFinally(sig -> ThreadContext.remove("corrId"));

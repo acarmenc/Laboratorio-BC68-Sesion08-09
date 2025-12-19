@@ -11,7 +11,7 @@ import java.time.Duration;
 
 @RestController
 @RequestMapping("/mock/risk")
-class MockRiskController {
+public class MockRiskController {
     @GetMapping("/allow")
     public Mono<Boolean> allow(@RequestParam String currency,
                                @RequestParam String type,

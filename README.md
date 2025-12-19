@@ -1,16 +1,16 @@
 
-# Laboratorio BC68 - Sesión 08 – 09
+# Laboratorio BC68 - Sesion 10 – 11
 
 ## **Objetivo**
 
-Construir un microservicio “transactions-service” que:
-1. exponga endpoints reactivos (WebFlux) para crear y listar movimientos de
-cuenta,
-2. persista cuentas y movimientos en MongoDB reactivo,
-3. consulte un módulo legado (JPA + H2 en memoria) para reglas de riesgo
-(bloqueante) y lo encapsule reactivamente con
-Schedulers.boundedElastic(),
-4. incluya manejo de errores consistente y un stream SSE de movimientos.
+Sobre el microservicio ya construido (WebFlux + Mongo reactivo + módulo legado
+JPA/H2):
+1. Activar y endurecer: Log4j2 (JSON + MDC), Jacoco con umbrales,
+   Checkstyle, SonarQube.
+2. Patrones: añadir Circuit Breaker + Retry + TimeLimiter (Resilience4j)
+   hacia un cliente remoto de riesgo con fallback al módulo legado JPA
+   envuelto en boundedElastic().
+3. Validar con Postman (nada de curl).
 
 ## **Endpoints**
 | Método | Endpoint            | Descripción |
@@ -32,9 +32,27 @@ git clone https://github.com/acarmenc/Laboratorio-BC68-Sesion08-09.git
 mvn spring-boot:run
 ```
 
+### **4. Iniciar Sonarqube**
+```
+docker run -d --name sonar -p 9001:9000 sonarqube:-community
+```
+
+### **5. Generar reporte jacoco y checkstule**
+```
+mvn clean install
+```
+
+### **6. Generar reporte sonarqube**
+```
+mvn clean verify sonar:sonar
+```
+
 ## **Herramientas utilizadas**
 - **Java 17**
 - **Maven 3.9.11**
+- **Sonarqube community (Docker image)**
+- **Jacoco**
+- **Checkstyle**
 - **MongoDb local**
 - **IntelliJ IDEA**
 - **Postman**

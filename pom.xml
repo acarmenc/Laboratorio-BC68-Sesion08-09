@@ -151,16 +151,6 @@
             <artifactId>jackson-annotations</artifactId>
         </dependency>
     </dependencies>
-
-	<!--<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>-->
-
     <build>
         <plugins>
             <!-- JaCoCo plugin -->
@@ -175,7 +165,7 @@
                         <goals><goal>prepare-agent</goal></goals>
                         <configuration>
                             <destFile>${project.build.directory}/jacoco.exec</destFile>
-                            <append>false</append>
+                            <append>true</append>
                         </configuration>
                     </execution>
 
